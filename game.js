@@ -34,7 +34,7 @@ $(".btn").click((e) => {
     if (userClickedPattern.length === gamePattern.length) {
       if (userChosenColor === gamePattern[gamePattern.length - 1]) {
         // Pattern is complete and correct; level up; Play sound;
-        levelComplete(userChosenColor, userClickedPattern);
+        levelComplete(userChosenColor);
       } else if (userChosenColor !== gamePattern[gamePattern.length - 1]) {
         // Loss condition if incorrect button is selected    
         lossSequence();
@@ -52,7 +52,6 @@ $(".btn").click((e) => {
           break;
         };
       };
-    console.log(`User Pattern: ${userClickedPattern}`);
     };
   };
 });
@@ -76,7 +75,6 @@ async function playAudio(name) {
 
 // Loss condition if incorrect button is selected   
 function lossSequence() { 
-  console.log("GAME OVER");
   createButtonAudio("wrong").play();
   $("h1")[0].innerHTML = "Incorrect pattern. Game over.";
   level = 1;
@@ -84,11 +82,10 @@ function lossSequence() {
 };
 
 // Level completed successfully
-function levelComplete(color, pattern) {
+function levelComplete(color) {
   $("h1")[0].innerHTML = "Correct!";
   createButtonAudio(color).play();
   level++;
-  console.log(`User Pattern: ${pattern}`);
   userClickedPattern = [];
   setTimeout(() => {
     $("h1")[0].innerHTML = `Level ${level}`;
@@ -105,7 +102,6 @@ function nextSequence() {
 
   // Button animation
   demonstrateGamePattern(gamePattern);
-  console.log(`New game pattern: ${gamePattern}`);
 };
 
 // Plays button audio and animations for gamePattern
